@@ -5,6 +5,11 @@ from utils import list_files, corpus_to_model, PROJECT_PATH
 
 
 def create_model(file_name, model_name):
+    """
+    Given a text samples or a folder containing multiple samples trains a word2vec model using continuous of word
+    :param file_name: given corpus
+    :param model_name: the name of the new model
+    """
     print("Analysing " + file_name)
     analyser = DocumentAnalysis(corpus_name=file_name, iter=500, window=20, min_count=5)
 

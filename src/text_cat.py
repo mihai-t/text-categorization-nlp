@@ -12,6 +12,15 @@ WORD2VEC_ANALYSER = DocumentAnalysis(model_file_name=os.path.join(PROJECT_PATH, 
 
 
 def create_plot(matrix, classes, svm, name):
+    """
+    Given a matrix of samples and their correct classes, plots the data on a 2d plot by performing a PCA analysis.
+    Furthermore, plots the separating hyperplane computed by a SVM classifier
+    :param matrix: Labeled points in the hyperplane
+    :param classes: List of correct classes
+    :param svm: Trained model
+    :param name: name of the plot
+    :return:
+    """
     pca = decomposition.PCA(n_components=2)
     principal_component = pca.fit_transform(matrix)
     plot.figure()
@@ -45,6 +54,13 @@ def create_plot(matrix, classes, svm, name):
 
 
 def compute_document_vector(file_name, analyser=WORD2VEC_ANALYSER):
+    """
+    Computes the document vector of a given sample using the word2vec model
+    The document vector is defined as the mean of all the word vectors of the text sample
+    :param file_name: given text sample
+    :param analyser: trained word2vec model
+    :return: the average vector of the document
+    """
     vectors = None
     count = 0
     for _ in WordIterator(file_name):
@@ -63,6 +79,11 @@ def compute_document_vector(file_name, analyser=WORD2VEC_ANALYSER):
 
 
 def build_training_set(analyser=WORD2VEC_ANALYSER):
+    """
+    Given a word2vec analyser, compute the document vectors of the labeled samples
+    :param analyser: given word2vec model
+    :return: annotated data set
+    """
     X = []
     Y = []
 
@@ -82,6 +103,11 @@ def build_training_set(analyser=WORD2VEC_ANALYSER):
 
 
 def test(svm):
+    """
+    Classify unlabeled samples using the trained svm model
+    :param svm: given trained model
+    :return: document vectors of the classified documents
+    """
     X = [compute_document_vector(os.path.join(PROJECT_PATH, "unlabeled", "institut.txt")),
          compute_document_vector(os.path.join(PROJECT_PATH, "unlabeled", "vizita.txt"))]
     Y = ["institut", "vizita"]

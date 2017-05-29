@@ -59,6 +59,10 @@ def do_pca(word_dictionary, name, labels=None):
 
 
 if __name__ == "__main__":
+    """
+    Create PCA plots in order to visualize the vector models
+    of all the available samples of prose
+    """
     for file in list_files(os.path.join(PROJECT_PATH, "text", "romanian_prose")):
         print("Analysing " + file)
         analyser = DocumentAnalysis(model_file_name=corpus_to_model(file))
